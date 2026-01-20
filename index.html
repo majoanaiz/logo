@@ -33,7 +33,7 @@ svg {
     <path d="M122.5 0H122.501C190.156 0 245.001 54.8451 245.001 122.5C245.001 190.155 190.156 245 122.501 245H122.5C54.8451 245 0 190.155 0 122.5C0 54.8451 54.8451 0 122.5 0Z" fill="#F0DC29"/>
   </g>
 
-  <!-- LOGO FINAL (oculto al inicio) -->
+  <!-- LOGO FINAL -->
   <g id="finalLogo" opacity="0" transform="translate(200,50)">
     <rect width="245.001" height="245" rx="122.5" transform="matrix(-1 0 0 1 273.693 28.9868)" fill="#F16347"/>
     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -55,18 +55,18 @@ const finalLogo = document.getElementById("finalLogo");
 
 const tl = gsap.timeline();
 
-// Movimiento infinito
+// Movimiento más corto y más compacto
 tl.to(orange, {
   duration: 3,
   motionPath: {
     path: [
       {x: 0, y: 0},
-      {x: 200, y: -100},
-      {x: 400, y: 0},
-      {x: 200, y: 100},
+      {x: 120, y: -60},
+      {x: 240, y: 0},
+      {x: 120, y: 60},
       {x: 0, y: 0}
     ],
-    curviness: 1.6
+    curviness: 1.4
   },
   ease: "power1.inOut"
 }, 0);
@@ -76,27 +76,41 @@ tl.to(yellow, {
   motionPath: {
     path: [
       {x: 0, y: 0},
-      {x: -200, y: 100},
-      {x: -400, y: 0},
-      {x: -200, y: -100},
+      {x: -120, y: 60},
+      {x: -240, y: 0},
+      {x: -120, y: -60},
       {x: 0, y: 0}
     ],
-    curviness: 1.6
+    curviness: 1.4
   },
   ease: "power1.inOut"
 }, 0);
 
-// Fade out círculos
+// Posición final tipo infinito (lado a lado)
+tl.to(orange, {
+  duration: 0.8,
+  x: -140,
+  y: 0,
+  ease: "power2.inOut"
+});
+
+tl.to(yellow, {
+  duration: 0.8,
+  x: 140,
+  y: 0,
+  ease: "power2.inOut"
+}, "<");
+
+// Micro fade
 tl.to([orange, yellow], {
-  duration: 0.6,
+  duration: 0.3,
   opacity: 0
 });
 
 // Reveal logo final
 tl.to(finalLogo, {
-  duration: 0.8,
+  duration: 0.6,
   opacity: 1,
-  scale: 1,
   ease: "power2.out"
 });
 </script>
