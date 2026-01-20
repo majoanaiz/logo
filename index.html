@@ -1,60 +1,61 @@
 <script>
-gsap.registerPlugin(MotionPathPlugin);
+window.onload = () => {
+  gsap.registerPlugin(MotionPathPlugin);
 
-const orange = document.getElementById("orange");
-const yellow = document.getElementById("yellow");
-const finalLogo = document.getElementById("finalLogo");
+  const orange = document.getElementById("orange");
+  const yellow = document.getElementById("yellow");
+  const finalLogo = document.getElementById("finalLogo");
 
-const tl = gsap.timeline();
+  if (!orange || !yellow || !finalLogo) {
+    console.error("No se encontraron los SVG:", { orange, yellow, finalLogo });
+    return;
+  }
 
-// POSICIONES FINALES tipo logo (ajusta si quieres 5-10px)
-const finalOffset = 130;
+  const tl = gsap.timeline();
 
-// ORANGE: termina a la izquierda
-tl.to(orange, {
-  duration: 3,
-  motionPath: {
-    path: [
-      {x: 0, y: 0},
-      {x: 100, y: -60},
-      {x: 200, y: 0},
-      {x: 100, y: 60},
-      {x: -finalOffset, y: 0} // 👈 termina a la izquierda
-    ],
-    curviness: 1.4
-  },
-  ease: "power1.inOut"
-}, 0);
+  const finalOffset = 130;
 
-// YELLOW: termina a la derecha
-tl.to(yellow, {
-  duration: 3,
-  motionPath: {
-    path: [
-      {x: 0, y: 0},
-      {x: -100, y: 60},
-      {x: -200, y: 0},
-      {x: -100, y: -60},
-      {x: finalOffset, y: 0} // 👈 termina a la derecha
-    ],
-    curviness: 1.4
-  },
-  ease: "power1.inOut"
-}, 0);
+  tl.to(orange, {
+    duration: 3,
+    motionPath: {
+      path: [
+        {x: 0, y: 0},
+        {x: 100, y: -60},
+        {x: 200, y: 0},
+        {x: 100, y: 60},
+        {x: -finalOffset, y: 0}
+      ],
+      curviness: 1.4
+    },
+    ease: "power1.inOut"
+  }, 0);
 
-// Micro pausa
-tl.to({}, { duration: 0.2 });
+  tl.to(yellow, {
+    duration: 3,
+    motionPath: {
+      path: [
+        {x: 0, y: 0},
+        {x: -100, y: 60},
+        {x: -200, y: 0},
+        {x: -100, y: -60},
+        {x: finalOffset, y: 0}
+      ],
+      curviness: 1.4
+    },
+    ease: "power1.inOut"
+  }, 0);
 
-// Micro fade
-tl.to([orange, yellow], {
-  duration: 0.3,
-  opacity: 0
-});
+  tl.to({}, { duration: 0.2 });
 
-// Aparece logo final
-tl.to(finalLogo, {
-  duration: 0.6,
-  opacity: 1,
-  ease: "power2.out"
-});
+  tl.to([orange, yellow], {
+    duration: 0.3,
+    opacity: 0
+  });
+
+  tl.to(finalLogo, {
+    duration: 0.6,
+    opacity: 1,
+    ease: "power2.out"
+  });
+};
 </script>
